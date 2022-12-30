@@ -12,9 +12,9 @@
 
 #include "../include/pipex.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    if (argc == 2)
-        ft_printf("%s", argv);
-    return (0);
+	if (argc == 2)
+		ft_printf("%s\n", argv[1]);
+	return (0);
 }
