@@ -1,35 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/30 00:55:33 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/02 15:24:34 by luntiet-         ###   ########.fr       */
+/*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/01/02 15:24:13 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	main(int argc, char **argv, char **env)
+void	split_free(char **str)
 {
-	int		i;
-	int		fd;
-	char	**path;
+	int	i;
 
 	i = 0;
-	if (argc < 5)
+	while (str[i])
 	{
-		ft_putendl_fd("args should be: file1 \"cmd1\" ... \"cmd2\" file2", 2);
-		return (EXIT_FAILURE);
+		free(str[i]);
+		i++;
 	}
-	else
+	free(str);
+}
+
+char	**get_path(char **env)
+{
+	char	**path;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (env[i])
 	{
-		path = get_path(env);
-		fd = handle_input(argc, argv);
-		run(fd, argv, argc, path);
-		split_free(path);
+		if (ft_strnstr(env[i], "PATH=", 5))
+		{
+			tmp = ft_strtrim(env[i], "PATH=");
+			path = ft_split(tmp, ':');
+			return (free(tmp), path);
+		}
+		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (NULL);
 }

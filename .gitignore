@@ -1,3 +1,5 @@
 *.o
 LeakSanitizer/
 pipex
+infile
+outfile

@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/30 00:55:33 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/02 15:24:34 by luntiet-         ###   ########.fr       */
+/*   Created: 2023/01/02 09:25:18 by luntiet-          #+#    #+#             */
+/*   Updated: 2023/01/02 14:20:58 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-int	main(int argc, char **argv, char **env)
+static int	check_null(int argc, char **argv)
 {
-	int		i;
-	int		fd;
-	char	**path;
+	int	i;
 
-	i = 0;
-	if (argc < 5)
+	i = 1;
+	while (i < argc)
 	{
-		ft_putendl_fd("args should be: file1 \"cmd1\" ... \"cmd2\" file2", 2);
-		return (EXIT_FAILURE);
+		if (ft_strlen(argv[i]) < 1)
+			return (0);
+		i++;
 	}
-	else
+	return (1);
+}
+
+int	handle_input(int argc, char **argv)
+{
+	int	fd;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		file_error();
+	if (!check_null(argc, argv))
 	{
-		path = get_path(env);
-		fd = handle_input(argc, argv);
-		run(fd, argv, argc, path);
-		split_free(path);
+		ft_putendl_fd("no empty arguments allowed", 2);
+		close(fd);
+		exit(EXIT_FAILURE);
 	}
-	return (EXIT_SUCCESS);
+	return	(fd);
 }

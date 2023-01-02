@@ -6,18 +6,22 @@
 #    By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 00:44:35 by luntiet-          #+#    #+#              #
-#    Updated: 2022/12/30 00:47:06 by luntiet-         ###   ########.fr        #
+#    Updated: 2023/01/02 10:49:49 by luntiet-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-NAME = pipex 
+NAME = pipex
 SRC_DIR = src
 OBJ_DIR = obj
 DIR_DUP = mkdir -p $(@D)
 
-SRC = main.c 
+SRC = main.c \
+		input.c \
+		error.c \
+		utils.c \
+		pipex.c
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -36,7 +40,7 @@ $(LSANLIB):
 	@$(MAKE) -C LeakSanitizer
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(LINK_FLAGS) $(OBJ) $(LIBFT) -o $(NAME) 
+	@$(CC) $(LINK_FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)
