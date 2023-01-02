@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/02 15:38:52 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/02 15:48:09 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	do_op(char **cmd, int fd, char **path)
 	binary = search_binary(path, cmd[0]);
 	if (!binary)
 		exit(EXIT_FAILURE);
-	ft_printf("%s\n", binary);
 }
 
 void	run(int fd, char **argv, int argc, char **path)
@@ -47,7 +46,6 @@ void	run(int fd, char **argv, int argc, char **path)
 	int	i;
 
 	i = 2;
-	fd = 0; // TODO enfernen wenn benutzt
 	while (i < (argc - 1))
 	{
 		cmd = ft_split(argv[i], ' ');
