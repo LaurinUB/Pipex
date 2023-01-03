@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:25:18 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/02 14:20:58 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 09:07:14 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int	handle_input(int argc, char **argv)
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
-	return	(fd);
+	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/02 15:48:09 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 10:52:09 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,31 @@ static char	*search_binary(char **path, char *cmd)
 	return (NULL);
 }
 
-static void	do_op(char **cmd, int fd, char **path)
+static void	do_op(char **cmd, char **path)
 {
 	char	*binary;
 
-	fd = 0; // TODO entfernen wenn benutzt
 	binary = search_binary(path, cmd[0]);
 	if (!binary)
 		exit(EXIT_FAILURE);
+	if (cmd[1] != NULL)
+		cmd[0] = ft_strjoin_gnl(cmd[0], cmd[1]);
+	execve(binary, &cmd[0], NULL);
 }
 
 void	run(int fd, char **argv, int argc, char **path)
 {
-	char **cmd;
-	int	i;
+	char	**cmd;
+	int		i;
 
 	i = 2;
+	fd = 0; //TODO remve when used
 	while (i < (argc - 1))
 	{
 		cmd = ft_split(argv[i], ' ');
 		if (!cmd)
 			exit(EXIT_FAILURE);
-		do_op(cmd, fd, path);
+		do_op(cmd, path);
 		split_free(cmd);
 		i++;
 	}
