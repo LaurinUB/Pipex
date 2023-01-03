@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 11:25:39 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:48:08 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*read_file(int fd)
 	char	*output;
 
 	line = get_next_line(fd);
-	ft_printf("%s\n", line);
 	output = ft_strdup("");
 	if (!line)
 		exit(EXIT_FAILURE);

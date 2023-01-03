@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:55:33 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 11:25:02 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:44:01 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int argc, char **argv, char **env)
 	int		i;
 	int		fd;
 	char	**path;
-	char	*file;
 
 	i = 0;
 	if (argc < 5)
@@ -26,7 +25,6 @@ int	main(int argc, char **argv, char **env)
 	{
 		path = get_path(env);
 		fd = handle_input(argc, argv);
-		file = read_file(fd);
 		run(fd, argv, argc, path);
 		split_free(path);
 	}

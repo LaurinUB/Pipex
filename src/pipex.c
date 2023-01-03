@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 11:26:00 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:03:11 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,57 @@ static char	*search_binary(char **path, char *cmd)
 	return (NULL);
 }
 
-static void	do_op(char **cmd, char **path)
+static void	do_op(char **argv, char **path, int i)
 {
 	char	*binary;
+	char	**cmd;
 
+	cmd = ft_split(argv[i], ' ');
+	if (!cmd)
+		ft_exit("split");
 	binary = search_binary(path, cmd[0]);
 	if (!binary)
 		exit(EXIT_FAILURE);
 	if (cmd[1] != NULL)
+	{
+		cmd[0] = ft_strjoin_gnl(cmd[0], " ");
 		cmd[0] = ft_strjoin_gnl(cmd[0], cmd[1]);
+	}
 	execve(binary, &cmd[0], NULL);
+	free(binary);
+	split_free(cmd);
 }
 
 void	run(int fd, char **argv, int argc, char **path)
 {
-	char	**cmd;
-	//char	*file;
+	char	*file;
+	pid_t	child;
+	int		pipefd[2];
 	int		i;
 
 	i = 2;
-	//file = read_file(fd);
-	fd = 0; //TODO remve when used
-	while (i < (argc - 1))
+	file = read_file(fd);
+	if (pipe(pipefd))
+		ft_exit("pipe");
+	child = fork();
+	if (child == -1)
+		ft_exit("fork");
+	close(fd);
+	fd = argc; //TODO remove when used
+	if (child == 0)
 	{
-		cmd = ft_split(argv[i], ' ');
-		if (!cmd)
-			exit(EXIT_FAILURE);
-		do_op(cmd, path);
-		split_free(cmd);
-		i++;
+		close(pipefd[0]);
+		dup2(pipefd[1], 1);
+		do_op(argv, path, 2);
 	}
+	close(pipefd[1]);
+	dup2(pipefd[0], 0);
+	do_op(argv, path, 3);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	//while (i < (argc - 1))
+	//{
+	//	do_op(argv, path, i);
+	//	i++;
+	//}
 }
