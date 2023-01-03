@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 16:03:11 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:36:15 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	run(int fd, char **argv, int argc, char **path)
 	int		i;
 
 	i = 2;
+	argc = 5;
 	file = read_file(fd);
+	close(fd);
 	if (pipe(pipefd))
 		ft_exit("pipe");
 	child = fork();
 	if (child == -1)
 		ft_exit("fork");
-	close(fd);
-	fd = argc; //TODO remove when used
 	if (child == 0)
 	{
 		close(pipefd[0]);
