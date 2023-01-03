@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/02 15:24:13 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:25:39 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ void	split_free(char **str)
 		i++;
 	}
 	free(str);
+}
+
+char	*read_file(int fd)
+{
+	char	*line;
+	char	*output;
+
+	line = get_next_line(fd);
+	ft_printf("%s\n", line);
+	output = ft_strdup("");
+	if (!line)
+		exit(EXIT_FAILURE);
+	while (line)
+	{
+		output = ft_strjoin_gnl(output, line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (output);
 }
 
 char	**get_path(char **env)
