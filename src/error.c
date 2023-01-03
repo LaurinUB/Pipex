@@ -6,11 +6,17 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:50:04 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/02 10:29:26 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:08:00 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+void	ft_exit(char *str)
+{
+	ft_putendl_fd(str, 2);
+	exit(EXIT_FAILURE);
+}
 
 void	file_error(void)
 {

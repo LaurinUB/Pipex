@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:25:18 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 09:07:14 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:10:03 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ int	handle_input(int argc, char **argv)
 		file_error();
 	if (!check_null(argc, argv))
 	{
-		ft_putendl_fd("no empty arguments allowed", 2);
 		close(fd);
-		exit(EXIT_FAILURE);
+		ft_exit("no empty arguments allowed");
 	}
 	return (fd);
 }
