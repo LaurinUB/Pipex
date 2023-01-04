@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:50:04 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 11:08:00 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:06:12 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ void	ft_exit(char *str)
 void	file_error(void)
 {
 	ft_putendl_fd("first argument shoulde be a file", 2);
-	exit(EXIT_FAILURE);
 }

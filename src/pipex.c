@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 16:36:15 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:13:21 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static char	*search_binary(char **path, char *cmd)
 		free(absolute_path);
 		i++;
 	}
-	return (NULL);
+	ft_putendl_fd("command not found", 2);
+	exit(EXIT_FAILURE);
 }
 
 static void	do_op(char **argv, char **path, int i)
@@ -39,8 +40,6 @@ static void	do_op(char **argv, char **path, int i)
 	if (!cmd)
 		ft_exit("split");
 	binary = search_binary(path, cmd[0]);
-	if (!binary)
-		exit(EXIT_FAILURE);
 	if (cmd[1] != NULL)
 	{
 		cmd[0] = ft_strjoin_gnl(cmd[0], " ");
@@ -49,38 +48,32 @@ static void	do_op(char **argv, char **path, int i)
 	execve(binary, &cmd[0], NULL);
 	free(binary);
 	split_free(cmd);
+	ft_exit("no executable");
 }
 
-void	run(int fd, char **argv, int argc, char **path)
+int	run(t_fd fd, char **argv, int i, char **path)
 {
-	char	*file;
 	pid_t	child;
 	int		pipefd[2];
-	int		i;
 
-	i = 2;
-	argc = 5;
-	file = read_file(fd);
-	close(fd);
-	if (pipe(pipefd))
+	if (pipe(pipefd) == -1)
 		ft_exit("pipe");
 	child = fork();
-	if (child == -1)
-		ft_exit("fork");
-	if (child == 0)
+	if (child < 0)
+		ft_exit("child");
+	else if (child == 0)
 	{
+		dup2(fd.infile, STDIN_FILENO);
+		close(fd.infile);
+		if (!argv[i + 2])
+			dup2(fd.outfile, STDOUT_FILENO);
+		else
+			dup2(pipefd[1], STDOUT_FILENO);
 		close(pipefd[0]);
-		dup2(pipefd[1], 1);
-		do_op(argv, path, 2);
+		close(pipefd[1]);
+		do_op(argv, path, i);
 	}
 	close(pipefd[1]);
-	dup2(pipefd[0], 0);
-	do_op(argv, path, 3);
-	close(pipefd[0]);
-	close(pipefd[1]);
-	//while (i < (argc - 1))
-	//{
-	//	do_op(argv, path, i);
-	//	i++;
-	//}
+	close(fd.infile);
+	return (pipefd[0]);
 }
