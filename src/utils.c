@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/03 16:06:53 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:36:18 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ char	*read_file(int fd)
 		line = get_next_line(fd);
 	}
 	return (output);
+}
+
+void	ft_exit(char *str)
+{
+	ft_putendl_fd(str, 2);
+	exit(EXIT_FAILURE);
 }
 
 char	**get_path(char **env)

@@ -6,7 +6,7 @@
 #    By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 00:44:35 by luntiet-          #+#    #+#              #
-#    Updated: 2023/01/04 12:40:25 by luntiet-         ###   ########.fr        #
+#    Updated: 2023/01/04 14:36:53 by luntiet-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ DIR_DUP = mkdir -p $(@D)
 
 SRC = main.c \
 		input.c \
-		error.c \
 		utils.c \
 		pipex.c
 

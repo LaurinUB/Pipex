@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:55:33 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/04 14:09:23 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:36:09 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ int	main(int argc, char **argv, char **env)
 		close(fd.infile);
 		close(fd.outfile);
 	}
-	//system("leaks pipex");
 	return (EXIT_SUCCESS);
 }
