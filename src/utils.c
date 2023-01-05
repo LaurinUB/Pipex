@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 10:01:08 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:11:34 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int	outfile(char **argv, int argc)
 
 	fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
+	{
 		perror(argv[argc -1]);
+		exit(EXIT_FAILURE);
+	}
 	return (fd);
 }
 
