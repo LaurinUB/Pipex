@@ -6,12 +6,12 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:58:59 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 19:20:03 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/05 19:33:35 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_HH
+# define PIPEX_BONUS_H
 
 # include <stdio.h>
 # include <fcntl.h>
