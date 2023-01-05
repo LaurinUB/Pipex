@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 09:57:35 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:49:20 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ static void	do_op(t_input input, int i)
 	char	*binary;
 	char	**cmd;
 
-	cmd = ft_split(input.argv[i], ' ');
+	if (ft_strchr(input.argv[i], '\t'))
+		cmd = ft_split(input.argv[i], '\t');
+	else
+		cmd = ft_split(input.argv[i], ' ');
 	binary = cmd[0];
 	if (!cmd)
 		ft_exit("split");
-	if (access(cmd[0], X_OK) < 0)
+	if (access(input.argv[i], X_OK) < 0)
 		binary = search_binary(input.path, cmd[0]);
 	if (cmd[1] != NULL)
 	{
