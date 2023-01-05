@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:25:18 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/04 14:07:06 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/05 10:01:14 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,21 @@ int	handle_input(int argc, char **argv)
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		perror("input");
+		perror(argv[1]);
 	if (!check_null(argc, argv))
 	{
 		close(fd);
 		ft_exit("no empty arguments allowed");
 	}
 	return (fd);
+}
+
+t_input	new_input(char **argv, char **env)
+{
+	t_input	input;
+
+	input.path = get_path(env);
+	input.argv = argv;
+	input.env = env;
+	return (input);
 }

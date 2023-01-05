@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/04 14:13:21 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/05 09:57:35 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,49 +31,53 @@ static char	*search_binary(char **path, char *cmd)
 	exit(EXIT_FAILURE);
 }
 
-static void	do_op(char **argv, char **path, int i)
+static void	do_op(t_input input, int i)
 {
 	char	*binary;
 	char	**cmd;
 
-	cmd = ft_split(argv[i], ' ');
+	cmd = ft_split(input.argv[i], ' ');
+	binary = cmd[0];
 	if (!cmd)
 		ft_exit("split");
-	binary = search_binary(path, cmd[0]);
+	if (access(cmd[0], X_OK) < 0)
+		binary = search_binary(input.path, cmd[0]);
 	if (cmd[1] != NULL)
 	{
 		cmd[0] = ft_strjoin_gnl(cmd[0], " ");
 		cmd[0] = ft_strjoin_gnl(cmd[0], cmd[1]);
 	}
-	execve(binary, &cmd[0], NULL);
+	execve(binary, &cmd[0], input.env);
 	free(binary);
 	split_free(cmd);
 	ft_exit("no executable");
 }
 
-int	run(t_fd fd, char **argv, int i, char **path)
+int	run(t_fd fd, t_input input, int i)
 {
 	pid_t	child;
 	int		pipefd[2];
 
 	if (pipe(pipefd) == -1)
-		ft_exit("pipe");
+		ft_exit_close("pipe", fd, input.path);
 	child = fork();
 	if (child < 0)
-		ft_exit("child");
+		ft_exit_close("child", fd, input.path);
 	else if (child == 0)
 	{
+		if (fd.infile < 0 || fd.outfile < 0)
+			exit(EXIT_FAILURE);
 		dup2(fd.infile, STDIN_FILENO);
 		close(fd.infile);
-		if (!argv[i + 2])
+		if (!input.argv[i + 2])
 			dup2(fd.outfile, STDOUT_FILENO);
 		else
-			dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		do_op(argv, path, i);
+			dup2(pipefd[PIPE_OUT], STDOUT_FILENO);
+		close(pipefd[PIPE_IN]);
+		close(pipefd[PIPE_OUT]);
+		do_op(input, i);
 	}
-	close(pipefd[1]);
+	close(pipefd[PIPE_OUT]);
 	close(fd.infile);
-	return (pipefd[0]);
+	return (pipefd[PIPE_IN]);
 }

@@ -6,7 +6,7 @@
 #    By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 00:44:35 by luntiet-          #+#    #+#              #
-#    Updated: 2023/01/04 14:36:53 by luntiet-         ###   ########.fr        #
+#    Updated: 2023/01/05 09:58:59 by luntiet-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,14 @@ DIR_DUP = mkdir -p $(@D)
 SRC = main.c \
 		input.c \
 		utils.c \
+		error.c \
 		pipex.c
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 LIBFT = ./libft/libft.a
 
-all: $(NAME) clo
+all: $(NAME)
 
 LSANLIB = /LeakSanitizer/liblsan.a
 lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
