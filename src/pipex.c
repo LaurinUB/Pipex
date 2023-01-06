@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 18:08:19 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:41:46 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*search_binary(char **path, char *cmd)
 	{
 		absolute_path = ft_strjoin(path[i], "/");
 		absolute_path = ft_strjoin_gnl(absolute_path, cmd);
-		if (access(absolute_path, X_OK) >= 0)
+		if (access(absolute_path, F_OK) >= 0)
 			return (absolute_path);
 		free(absolute_path);
 		i++;
@@ -36,21 +36,16 @@ static void	do_op(t_input input, int i)
 	char	*binary;
 	char	**cmd;
 
+	binary = input.argv[i];
 	if (ft_strchr(input.argv[i], '\t'))
 		cmd = ft_split(input.argv[i], '\t');
 	else
 		cmd = ft_split(input.argv[i], ' ');
-	binary = cmd[0];
 	if (!cmd)
 		ft_exit("split");
 	if (access(input.argv[i], X_OK) < 0)
 		binary = search_binary(input.path, cmd[0]);
-	if (cmd[1] != NULL)
-	{
-		cmd[0] = ft_strjoin_gnl(cmd[0], " ");
-		cmd[0] = ft_strjoin_gnl(cmd[0], cmd[1]);
-	}
-	execve(binary, &cmd[0], input.env);
+	execve(binary, cmd, input.env);
 	free(binary);
 	split_free(cmd);
 	ft_exit("no executable");
@@ -76,8 +71,7 @@ int	run(t_fd fd, t_input input, int i)
 			dup2(fd.outfile, STDOUT_FILENO);
 		else
 			dup2(pipefd[PIPE_OUT], STDOUT_FILENO);
-		close(pipefd[PIPE_IN]);
-		close(pipefd[PIPE_OUT]);
+		close_pipes(pipefd);
 		do_op(input, i);
 	}
 	close(pipefd[PIPE_OUT]);

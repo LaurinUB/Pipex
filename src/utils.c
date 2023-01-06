@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 12:11:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:39:51 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,10 @@ char	**get_path(char **env)
 		i++;
 	}
 	return (NULL);
+}
+
+void	close_pipes(int *pipefd)
+{
+	close(pipefd[PIPE_IN]);
+	close(pipefd[PIPE_OUT]);
 }

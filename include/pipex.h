@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:58:59 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 10:01:49 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:38:29 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	split_free(char **str);
 char	*read_file(int fd);
 char	**get_path(char **env);
 int		outfile(char **argv, int argc);
+void	close_pipes(int *pipefd);
 
 //pipex
 int		run(t_fd fd, t_input input, int i);

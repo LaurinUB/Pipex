@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 19:19:34 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:38:45 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	do_op(t_input input, int i)
 		cmd[0] = ft_strjoin_gnl(cmd[0], " ");
 		cmd[0] = ft_strjoin_gnl(cmd[0], cmd[1]);
 	}
-	execve(binary, &cmd[0], input.env);
+	execve(binary, &input.argv[i], input.env);
 	free(binary);
 	split_free(cmd);
 	ft_exit("no executable");

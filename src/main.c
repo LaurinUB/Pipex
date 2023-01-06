@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:55:33 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 09:55:11 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:42:27 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(int argc, char **argv, char **env)
 			i++;
 		}
 		waitpid(0, NULL, 0);
-		close(fd.infile);
 		split_free(input.path);
+		close(fd.infile);
 		close(fd.outfile);
 	}
 	return (EXIT_SUCCESS);
