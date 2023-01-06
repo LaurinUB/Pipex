@@ -3,4 +3,5 @@ LeakSanitizer/
 pipex
 infile
 outfile
+pipex_bonus
 scripts/
