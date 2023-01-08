@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/08 12:32:03 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/08 14:54:02 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,42 @@ static char	*search_binary(char **path, char *cmd)
 	exit(EXIT_FAILURE);
 }
 
-static char	*change(char *command)
+static char	*awk_handle(char *cmd)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = ft_strtrim(cmd, "awk ");
+	new[0] = ' ';
+	new[ft_strlen(new) - 1] = ' ';
+	while (new[i])
+	{
+		if (new[i] == '\\')
+			new[i] = ' ';
+		i++;
+	}
+	new = ft_strjoin("awk ", new);
+	return (new);
+}
+
+static char	*change(char *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (command[i])
+	if (ft_strnstr(cmd, "awk", 3))
+		cmd = awk_handle(cmd);
+	else
 	{
-		if (command[i] == '\'' || command[i] == '\"')
-			command[i] = ' ';
-		i++;
+		while (cmd[i])
+		{
+			if (cmd[i] == '\'' || cmd[i] == '\"')
+				cmd[i] = ' ';
+			i++;
+		}
 	}
-	return (command);
+	return (cmd);
 }
 
 static void	do_op(t_input input, int i)
@@ -58,7 +82,7 @@ static void	do_op(t_input input, int i)
 		cmd = ft_split(input.argv[i], ' ');
 	if (!cmd)
 		ft_exit("split");
-	if (access(input.argv[i], F_OK) < 0)
+	if (access(input.argv[i], X_OK) < 0)
 		binary = search_binary(input.path, cmd[0]);
 	if (cmd[3])
 		cmd = split_join(cmd);
