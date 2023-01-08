@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/08 11:58:38 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:32:03 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,50 +27,22 @@ static char	*search_binary(char **path, char *cmd)
 		free(absolute_path);
 		i++;
 	}
-	ft_putendl_fd("command not found", 2);
+	perror("command not found");
 	exit(EXIT_FAILURE);
 }
 
-
-static char *change(char *command)
+static char	*change(char *command)
 {
 	int	i;
 
 	i = 0;
 	while (command[i])
 	{
-		if (command[i] == '\'' )
-			command[i] = '\"';
-		if (command[i] == '\"')
+		if (command[i] == '\'' || command[i] == '\"')
 			command[i] = ' ';
-
 		i++;
 	}
 	return (command);
-}
-
-static char	**split_join(char **str)
-{
-	char	**new;
-	int		i;
-	char	*tmp;
-
-	if (!str)
-		return (NULL);
-	new = malloc(3 * sizeof(char *));
-	i = 1;
-	new[0] = str[0];
-	tmp = ft_strdup("");
-	while (str[i])
-	{
-		tmp = ft_strjoin_gnl(tmp, str[i]);
-		i++;
-		if (str[i])
-			tmp = ft_strjoin_gnl(tmp, " ");
-	}
-	new[1] = tmp;
-	new[2] = NULL;
-	return (free (str), new);
 }
 
 static void	do_op(t_input input, int i)

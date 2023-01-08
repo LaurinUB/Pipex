@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/06 17:39:51 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:16:03 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,28 @@ void	split_free(char **str)
 	free(str);
 }
 
-char	*read_file(int fd)
+char	**split_join(char **str)
 {
-	char	*line;
-	char	*output;
+	char	**new;
+	int		i;
+	char	*tmp;
 
-	line = get_next_line(fd);
-	output = ft_strdup("");
-	if (!line)
-		exit(EXIT_FAILURE);
-	while (line)
+	if (!str)
+		return (NULL);
+	new = malloc(3 * sizeof(char *));
+	i = 1;
+	new[0] = str[0];
+	tmp = ft_strdup("");
+	while (str[i])
 	{
-		output = ft_strjoin_gnl(output, line);
-		free(line);
-		line = get_next_line(fd);
+		tmp = ft_strjoin_gnl(tmp, str[i]);
+		i++;
+		if (str[i])
+			tmp = ft_strjoin_gnl(tmp, " ");
 	}
-	return (output);
+	new[1] = tmp;
+	new[2] = NULL;
+	return (free (str), new);
 }
 
 int	outfile(char **argv, int argc)
