@@ -6,7 +6,7 @@
 #    By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 00:44:35 by luntiet-          #+#    #+#              #
-#    Updated: 2023/01/09 11:54:43 by luntiet-         ###   ########.fr        #
+#    Updated: 2023/01/09 16:16:13 by luntiet-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ LIBFT = ./libft/libft.a
 
 all: $(NAME)
 
-bonus:
-	@$(OBJ_BONUS)	@$(CC) $(LINK_FLAGS) $(OBJ_BONUS) $(LIBFT) -o $(NAME)
+bonus: $(OBJ_BONUS)
+	@$(CC) $(LINK_FLAGS) $(OBJ_BONUS) $(LIBFT) -o $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@$(CC) $(LINK_FLAGS) $(OBJ) $(LIBFT) -o $(NAME)

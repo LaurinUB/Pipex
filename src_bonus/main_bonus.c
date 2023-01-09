@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:55:33 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/09 11:53:41 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:02:18 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
 	i = 2;
 	if (!env)
 		perror("env");
-	if (argc != 5)
+	if (argc < 5)
 		ft_exit("args should be: file1 \"cmd1\" ... \"cmd2\" file2");
 	else
 	{
