@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/06 14:38:45 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/09 11:52:54 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,51 @@ static char	*search_binary(char **path, char *cmd)
 	{
 		absolute_path = ft_strjoin(path[i], "/");
 		absolute_path = ft_strjoin_gnl(absolute_path, cmd);
-		if (access(absolute_path, X_OK) >= 0)
+		if (access(absolute_path, F_OK) >= 0)
 			return (absolute_path);
 		free(absolute_path);
 		i++;
 	}
-	ft_putendl_fd("command not found", 2);
+	perror("command not found");
 	exit(EXIT_FAILURE);
+}
+
+static char	*awk_handle(char *cmd)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = ft_strtrim(cmd, "awk ");
+	new[0] = ' ';
+	new[ft_strlen(new) - 1] = ' ';
+	while (new[i])
+	{
+		if (new[i] == '\\')
+			new[i] = ' ';
+		i++;
+	}
+	new = ft_strjoin("awk ", new);
+	return (new);
+}
+
+static char	*change(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (ft_strnstr(cmd, "awk", 3))
+		cmd = awk_handle(cmd);
+	else
+	{
+		while (cmd[i])
+		{
+			if (cmd[i] == '\'' || cmd[i] == '\"')
+				cmd[i] = ' ';
+			i++;
+		}
+	}
+	return (cmd);
 }
 
 static void	do_op(t_input input, int i)
@@ -36,21 +74,21 @@ static void	do_op(t_input input, int i)
 	char	*binary;
 	char	**cmd;
 
+	input.argv[i] = change(input.argv[i]);
+	binary = input.argv[i];
 	if (ft_strchr(input.argv[i], '\t'))
 		cmd = ft_split(input.argv[i], '\t');
 	else
 		cmd = ft_split(input.argv[i], ' ');
-	binary = cmd[0];
 	if (!cmd)
 		ft_exit("split");
 	if (access(input.argv[i], X_OK) < 0)
 		binary = search_binary(input.path, cmd[0]);
-	if (cmd[1] != NULL)
-	{
-		cmd[0] = ft_strjoin_gnl(cmd[0], " ");
-		cmd[0] = ft_strjoin_gnl(cmd[0], cmd[1]);
-	}
-	execve(binary, &input.argv[i], input.env);
+	if (cmd[3])
+		cmd = split_join(cmd);
+	//ft_putendl_fd(cmd[0], 2);
+	//ft_putendl_fd(cmd[1], 2);
+	execve(binary, cmd, input.env);
 	free(binary);
 	split_free(cmd);
 	ft_exit("no executable");
@@ -76,8 +114,7 @@ int	run(t_fd fd, t_input input, int i)
 			dup2(fd.outfile, STDOUT_FILENO);
 		else
 			dup2(pipefd[PIPE_OUT], STDOUT_FILENO);
-		close(pipefd[PIPE_IN]);
-		close(pipefd[PIPE_OUT]);
+		close_pipes(pipefd);
 		do_op(input, i);
 	}
 	close(pipefd[PIPE_OUT]);

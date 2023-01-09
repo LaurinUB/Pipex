@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 09:47:26 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/05 19:19:18 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/09 11:54:15 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_exit_close(char *str, t_fd fd, char **path)
 {
-	ft_putendl_fd(str, 2);
+	perror(str);
 	close(fd.infile);
 	close(fd.outfile);
 	split_free(path);
@@ -23,6 +23,6 @@ void	ft_exit_close(char *str, t_fd fd, char **path)
 
 void	ft_exit(char *str)
 {
-	ft_putendl_fd(str, 2);
+	perror(str);
 	exit(EXIT_FAILURE);
 }
