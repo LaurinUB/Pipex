@@ -4,3 +4,5 @@ pipex
 infile
 outfile
 scripts/
+obj/
+obj_bonus/
