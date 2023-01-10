@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/08 14:54:02 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:07:04 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ static void	do_op(t_input input, int i)
 		binary = search_binary(input.path, cmd[0]);
 	if (cmd[3])
 		cmd = split_join(cmd);
-	//ft_putendl_fd(cmd[0], 2);
-	//ft_putendl_fd(cmd[1], 2);
 	execve(binary, cmd, input.env);
 	free(binary);
 	split_free(cmd);
