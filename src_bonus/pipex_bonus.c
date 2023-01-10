@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/09 11:52:54 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/10 10:22:53 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int	run(t_fd fd, t_input input, int i)
 	child = fork();
 	if (child < 0)
 		ft_exit_close("child", fd, input.path);
+	if (!ft_strncmp(input.argv[1], "here_doc", 8))
+		i++;
 	else if (child == 0)
 	{
 		if (fd.infile < 0 || fd.outfile < 0)

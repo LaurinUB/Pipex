@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:40:00 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/09 11:53:27 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/10 09:10:11 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**split_join(char **str)
 	}
 	new[1] = tmp;
 	new[2] = NULL;
-	return (free (str), new);
+	return (free(str), new);
 }
 
 int	outfile(char **argv, int argc)
@@ -55,10 +55,7 @@ int	outfile(char **argv, int argc)
 
 	fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-	{
-		perror(argv[argc -1]);
-		exit(EXIT_FAILURE);
-	}
+		ft_exit(argv[argc - 1]);
 	return (fd);
 }
 

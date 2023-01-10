@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 09:25:18 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/09 16:24:51 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/10 10:29:41 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,39 @@ char	*read_file(int fd)
 
 int	handle_input(int argc, char **argv)
 {
-	int	fd;
+	int		fd;
+	char	*delimiter;
+	char	*tmp;
 
 	if (!ft_strncmp(argv[1], "here_doc", 8))
 	{
-		fd = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0777);
-		char	buf[1];
-		char	*delimiter;
-		char	*tmp;
 
+		fd = open("here_doc", O_CREAT | O_TRUNC | O_RDWR, 0644);
 		delimiter = ft_strjoin(argv[2], "\n");
-		tmp = ft_strdup("");
-		while (read(STDIN_FILENO, buf, sizeof(buf)) > 0)
+		while (1)
 		{
-			if (ft_strnstr(tmp, delimiter, ft_strlen(tmp)))
-				break;
-			tmp = ft_strjoin_gnl(tmp, buf);
+			write(STDOUT_FILENO, "heredoc> ", 9);
+			tmp = get_next_line(STDIN_FILENO);
+			if (ft_strnstr(tmp, delimiter, ft_strlen(delimiter)))
+				break ;
+			write(fd, tmp, ft_strlen(tmp));
+			free(tmp);
 		}
-		write(fd, tmp, ft_strlen(tmp));
+		close(fd);
+		fd = open("here_doc", O_RDONLY);
 		return (free(tmp), fd);
 	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		perror(argv[1]);
-	if (!check_null(argc, argv))
+	else
 	{
-		close(fd);
-		ft_exit("no empty arguments allowed");
+		fd = open(argv[1], O_RDONLY);
+		if (fd < 0)
+			perror(argv[1]);
+		if (!check_null(argc, argv))
+		{
+			close(fd);
+			ft_exit("no empty arguments allowed");
+		}
+		return (fd);
 	}
 	return (fd);
 }
