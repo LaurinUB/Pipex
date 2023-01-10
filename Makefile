@@ -6,7 +6,7 @@
 #    By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 00:44:35 by luntiet-          #+#    #+#              #
-#    Updated: 2023/01/10 14:00:36 by luntiet-         ###   ########.fr        #
+#    Updated: 2023/01/10 14:17:34 by luntiet-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) -c -o $@ $<
-
 
 $(LIBFT):
 	@git submodule init

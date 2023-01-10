@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 10:50:07 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/10 14:04:47 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:50:56 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static char	*search_binary(char **path, char *cmd)
 		free(absolute_path);
 		i++;
 	}
-	perror("command not found");
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": command not found", 2);
 	exit(EXIT_FAILURE);
 }
 
