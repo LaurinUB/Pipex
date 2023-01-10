@@ -6,7 +6,7 @@
 #    By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 00:44:35 by luntiet-          #+#    #+#              #
-#    Updated: 2023/01/09 17:17:01 by luntiet-         ###   ########.fr        #
+#    Updated: 2023/01/10 14:00:36 by luntiet-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC = main.c \
 SRC_BONUS = main_bonus.c \
 				input_bonus.c \
 				utils_bonus.c \
+				utils2_bonus.c \
 				error_bonus.c \
 				pipex_bonus.c
 

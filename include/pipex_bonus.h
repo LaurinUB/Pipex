@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:58:59 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/09 16:17:20 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:06:17 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	**get_path(char **env);
 int		outfile(char **argv, int argc);
 void	close_pipes(int *pipefd);
 char	**split_join(char **str);
+char	*change(char *cmd);
+char	*awk_handle(char *cmd);
 
 //pipex
 int		run(t_fd fd, t_input input, int i);

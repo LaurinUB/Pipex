@@ -6,7 +6,7 @@
 /*   By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 00:55:33 by luntiet-          #+#    #+#             */
-/*   Updated: 2023/01/10 11:28:50 by luntiet-         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:38:40 by luntiet-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int	main(int argc, char **argv, char **env)
 		close(fd.infile);
 		close(fd.outfile);
 	}
-	//unlink("here_doc");
-	return (EXIT_SUCCESS);
+	return (unlink("here_doc"), EXIT_SUCCESS);
 }
