@@ -6,7 +6,7 @@
 #    By: luntiet- <luntiet-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/30 00:44:35 by luntiet-          #+#    #+#              #
-#    Updated: 2023/01/11 13:15:40 by luntiet-         ###   ########.fr        #
+#    Updated: 2023/01/11 15:35:15 by luntiet-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(LIBFT):
-	@git submodule update --init --recursive --remote
+	@git submodule update --init
 	@cd libft && make && make clean
 
 clean:
